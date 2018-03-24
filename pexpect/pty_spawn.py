@@ -2,7 +2,7 @@ import os
 import sys
 import time
 import pty
-import tty
+
 import errno
 import signal
 from contextlib import contextmanager
@@ -171,7 +171,7 @@ class spawn(SpawnBase):
         using setecho(False) followed by waitnoecho().  However, for some
         platforms such as Solaris, this is not possible, and should be
         disabled immediately on spawn.
-        
+
         If preexec_fn is given, it will be called in the child process before
         launching the given command. This is useful to e.g. reset inherited
         signal handlers.
@@ -738,6 +738,7 @@ class spawn(SpawnBase):
         '''
 
         # Flush the buffer.
+        import tty
         self.write_to_stdout(self.buffer)
         self.stdout.flush()
         self._buffer = self.buffer_type()
